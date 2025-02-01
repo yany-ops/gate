@@ -25,7 +25,7 @@ func New(db *db.DB) *proxy {
 	if err != nil {
 		panic(err)
 	}
-	handler.SetRoutes(router)
+	handler.SetRoutes(router, db)
 	return proxy
 }
 

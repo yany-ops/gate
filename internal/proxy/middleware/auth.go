@@ -9,7 +9,8 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/YanyChoi/gate/internal/proxy/models"
-	authServer "github.com/YanyChoi/gate/pkg/auth/server"
+	authServer "github.com/YanyChoi/gate/pkg/auth"
+	"github.com/YanyChoi/gate/pkg/auth"
 )
 
 type AuthMiddleware struct {
@@ -17,10 +18,10 @@ type AuthMiddleware struct {
 	jwtSecret []byte
 }
 
-func NewAuthMiddleware(db *gorm.DB, jwtSecret []byte) *AuthMiddleware {
+func NewAuthMiddleware(db *gorm.DB, config *auth.Config) *AuthMiddleware {
 	return &AuthMiddleware{
 		db:        db,
-		jwtSecret: jwtSecret,
+		jwtSecret: []byte(config.SingingKey),
 	}
 }
 
