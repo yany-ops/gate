@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	auth "github.com/YanyChoi/gate/pkg/auth"
+	"github.com/YanyChoi/gate/pkg/auth"
 	"golang.org/x/oauth2"
 )
 

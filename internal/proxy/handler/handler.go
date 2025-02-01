@@ -5,6 +5,7 @@ import (
 	"net/url"
 
 	"github.com/YanyChoi/gate/internal/proxy/config"
+	"github.com/YanyChoi/gate/pkg/auth"
 	"github.com/YanyChoi/gate/pkg/db"
 	"github.com/go-chi/chi/v5"
 
@@ -37,7 +38,7 @@ func (h *Handler) SetRoutes(server *chi.Mux, db *db.DB) error {
 		return err
 	}
 
-	auth, err := NewAuthHandler(db.GetDB(), h.config.Auth)
+	auth, err := auth.NewAuthHandler(db.GetDB(), h.config.Auth)
 	if err != nil {
 		return err
 	}
@@ -53,6 +54,8 @@ func (h *Handler) SetRoutes(server *chi.Mux, db *db.DB) error {
 	router.Route("/auth", func(r chi.Router) {
 		r.Get("/login", auth.LoginHandler)
 		r.Get("/callback", auth.CallbackHandler)
+		r.Post("/device/code", auth.DeviceCodeHandler)
+		r.Post("/device/token", auth.DeviceTokenHandler)
 	})
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, World!"))
