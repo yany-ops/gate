@@ -67,10 +67,7 @@ func (a *AuthHandler) CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get user info
-	var claims struct {
-		Email string `json:"email"`
-		Name  string `json:"name"`
-	}
+	var claims auth.Claims
 	if err := idToken.Claims(&claims); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
