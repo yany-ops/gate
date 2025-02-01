@@ -10,13 +10,12 @@ import (
 	"github.com/YanyChoi/gate/pkg/auth"
 	"github.com/coreos/go-oidc/v3/oidc"
 	"github.com/golang-jwt/jwt/v5"
-	"golang.org/x/oauth2"
 	"gorm.io/gorm"
 )
 
 type AuthHandler struct {
 	db           *gorm.DB
-	config       *oauth2.Config
+	config       *auth.Config
 	verifier     *oidc.IDTokenVerifier
 	jwtSecret    []byte
 }
@@ -30,7 +29,7 @@ func NewAuthHandler(db *gorm.DB, config *auth.Config) (*AuthHandler, error) {
 
 	return &AuthHandler{
 		db:        db,
-		config:    config.Oauth,
+		config:    config,
 		verifier:  provider.Verifier(&oidc.Config{ClientID: config.Oauth.ClientID}),
 		jwtSecret: []byte(config.SingingKey),
 	}, nil
@@ -38,15 +37,15 @@ func NewAuthHandler(db *gorm.DB, config *auth.Config) (*AuthHandler, error) {
 
 
 func (a *AuthHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
-	state := "some-random-state" // In production, use a secure random state
-	http.Redirect(w, r, a.config.AuthCodeURL(state), http.StatusFound)
+	state := a.config.OauthState
+	http.Redirect(w, r, a.config.Oauth.AuthCodeURL(state), http.StatusFound)
 }
 
 func (a *AuthHandler) CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	
 	// Exchange code for token
-	oauth2Token, err := a.config.Exchange(ctx, r.URL.Query().Get("code"))
+	oauth2Token, err := a.config.Oauth.Exchange(ctx, r.URL.Query().Get("code"))
 	if err != nil {
 		http.Error(w, "Failed to exchange token", http.StatusInternalServerError)
 		return
