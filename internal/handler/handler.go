@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/yany-ops/gate/internal/flag"
+	"go.uber.org/zap"
 )
 
 func SetHandlers(r *chi.Mux) {
@@ -69,7 +70,7 @@ func proxyApiServerHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create the request with the Bearer token
-		url := "https://" + host + ":" + port + r.URL.Path
+		url := "https://" + host + ":" + port + r.URL.Path + "?" + r.URL.RawQuery
 		req, err := http.NewRequest(r.Method, url, r.Body)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -77,11 +78,17 @@ func proxyApiServerHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		req.Header.Set("Authorization", "Bearer "+string(token))
-
-		// Set the Content-Type header
 		req.Header.Set("Content-Type", "application/json")
-		if contentType := r.Header.Get("Content-Type"); contentType != "" {
-			req.Header.Set("Content-Type", contentType)
+
+		// Overwrite Headers
+		for k, v := range r.Header {
+			if len(v) > 1 {
+				for _, vv := range v {
+					req.Header.Add(k, vv)
+				}
+			} else {
+				req.Header.Set(k, v[0])
+			}
 		}
 
 		resp, err := client.Do(req)
@@ -92,6 +99,15 @@ func proxyApiServerHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		defer resp.Body.Close()
 		body, err := io.ReadAll(resp.Body)
+		if r.URL.Path == "/apis/authorization.k8s.io/v1/selfsubjectaccessreviews" {
+			zap.L().Info("Response", zap.Any("headers", resp.Header))
+			zap.L().Info("Body", zap.String("body", string(body)))
+		}
+
+		if resp.StatusCode > 299 {
+			zap.L().Error("Request failed", zap.Int("status-code", resp.StatusCode), zap.String("url", url), zap.String("method", r.Method), zap.String("path", r.URL.Path), zap.String("body", string(body)))
+			zap.L().Error("Headers", zap.Any("headers", r.Header))
+		}
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Failed to read response: " + err.Error()))
