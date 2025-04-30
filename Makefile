@@ -8,5 +8,6 @@ run:
 
 docker-build:
 	docker build -t gate:$(VERSION) .
+	kubectl delete pod gate*
 k8s:
 	kubectl apply -f manifests.yaml
