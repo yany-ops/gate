@@ -7,6 +7,9 @@ on:
 
 jobs:
   deploy:
+    strategy:
+      matrix:
+        app: [proxy, manager]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -20,5 +23,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        tags: yhc0818/gate:${{ github.ref_name }}
+        tags: yhc0818/gate/${{ matrix.app }}:${{ github.ref_name }}
+        dockerfile: ./docker/${{ matrix.app }}.Dockerfile
         push: true

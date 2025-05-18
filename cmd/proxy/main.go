@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/yany-ops/gate/internal/flag"
-	"github.com/yany-ops/gate/internal/proxy"
+	"github.com/yany-ops/gate/internal/proxy/flag"
+	"github.com/yany-ops/gate/internal/proxy/proxy"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"k8s.io/client-go/rest"

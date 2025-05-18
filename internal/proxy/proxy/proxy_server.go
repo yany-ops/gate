@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/yany-ops/gate/internal/middleware"
+	"github.com/yany-ops/gate/internal/proxy/middleware"
 	"go.uber.org/zap"
 	utilnet "k8s.io/apimachinery/pkg/util/net"
 	"k8s.io/apimachinery/pkg/util/proxy"

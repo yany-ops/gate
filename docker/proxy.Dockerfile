@@ -4,12 +4,12 @@ WORKDIR /app
 
 COPY . .
 
-RUN go build -o gate cmd/proxy.go
+RUN go build -o proxy cmd/proxy/*
 
 FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates
 
-COPY --from=builder /app/gate /usr/local/bin/gate
+COPY --from=builder /app/proxy /usr/local/bin/proxy
 
-ENTRYPOINT ["gate"]
+ENTRYPOINT ["proxy"]

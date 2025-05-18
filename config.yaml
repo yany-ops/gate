@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+oidc:
+  client_id: example-app
+  client_secret: example-app-secret
+  issuer_url: http://localhost:5556/dex
+  redirect_url: http://localhost:8080/auth/callback
+
+database:
+  host: localhost
+  port: 5432
+  user: gate
+  password: gate
+  database: gate
+  auto_migrate: false
+admins:
+- dydghks0818@naver.com
+- yany@daangnpay.com

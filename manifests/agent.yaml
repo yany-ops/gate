@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gate
+  name: gate-agent
   labels:
-    app: gate
+    app: gate-agent
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gate
+      app: gate-agent
   template:
     metadata:
       labels:
-        app: gate
+        app: gate-agent
     spec:
-      serviceAccountName: gate
+      serviceAccountName: gate-agent
       containers:
-        - name: gate
-          image: gate:0.0.1
+        - name: gate-agent
+          image: gate/agent:0.0.1
           ports:
             - containerPort: 8080
           imagePullPolicy: IfNotPresent
@@ -25,10 +25,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: gate
+  name: gate-agent
 spec:
   selector:
-    app: gate
+    app: gate-agent
   ports:
     - port: 8080
       targetPort: 8080
@@ -36,13 +36,13 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: gate
+  name: gate-agent
   namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: gate
+  name: gate-agent
 rules:
   - apiGroups:
       - "*"
@@ -54,12 +54,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: gate
+  name: gate-agent
 subjects:
   - kind: ServiceAccount
-    name: gate
+    name: gate-agent
     namespace: default
 roleRef:
   kind: ClusterRole
-  name: gate
+  name: gate-agent
   apiGroup: rbac.authorization.k8s.io
