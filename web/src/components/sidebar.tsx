@@ -1,7 +1,7 @@
-import { useState } from "react"
-import { Link } from "react-router"
-import { useLocation } from "react-router"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { Link } from "react-router";
+import { useLocation } from "react-router";
+import { Button } from "@/components/ui/button";
 import {
   BarChart3,
   Boxes,
@@ -16,20 +16,22 @@ import {
   Shield,
   Terminal,
   Users,
-} from "lucide-react"
-import LogoIcon from "../assets/logo.png"
+} from "lucide-react";
+import LogoIcon from "../assets/logo.png";
 
 export function Sidebar() {
-  const pathname = useLocation()
-  const [collapsed, setCollapsed] = useState(false)
+  const pathname = useLocation();
+  const [collapsed, setCollapsed] = useState(false);
 
   const toggleSidebar = () => {
-    setCollapsed(!collapsed)
-  }
+    setCollapsed(!collapsed);
+  };
 
   const isActive = (path: string) => {
-    return pathname.pathname === path || pathname.pathname?.startsWith(`${path}/`)
-  }
+    return (
+      pathname.pathname === path || pathname.pathname?.startsWith(`${path}/`)
+    );
+  };
 
   return (
     <div
@@ -43,8 +45,17 @@ export function Sidebar() {
           </div>
         )}
         {collapsed && <Shield className="h-6 w-6 text-primary mx-auto" />}
-        <Button variant="ghost" size="icon" onClick={toggleSidebar} className={collapsed ? "mx-auto" : ""}>
-          {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleSidebar}
+          className={collapsed ? "mx-auto" : ""}
+        >
+          {collapsed ? (
+            <ChevronRight className="h-4 w-4" />
+          ) : (
+            <ChevronLeft className="h-4 w-4" />
+          )}
         </Button>
       </div>
       <div className="flex-1 overflow-auto py-2">
@@ -52,7 +63,9 @@ export function Sidebar() {
           <Link to="/dashboard">
             <Button
               variant={
-                isActive("/dashboard") && !isActive("/dashboard/clusters") && !isActive("/dashboard/rbac")
+                isActive("/dashboard") &&
+                !isActive("/dashboard/clusters") &&
+                !isActive("/dashboard/rbac")
                   ? "secondary"
                   : "ghost"
               }
@@ -76,12 +89,17 @@ export function Sidebar() {
               variant={isActive("/dashboard/rbac") ? "secondary" : "ghost"}
               className={`w-full justify-start ${collapsed ? "px-2" : "px-3"}`}
             >
-              <LockKeyhole className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"}`} />
+              <LockKeyhole
+                className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"}`}
+              />
               {!collapsed && <span>RBAC</span>}
             </Button>
           </Link>
           <Link to="#">
-            <Button variant="ghost" className={`w-full justify-start ${collapsed ? "px-2" : "px-3"}`}>
+            <Button
+              variant="ghost"
+              className={`w-full justify-start ${collapsed ? "px-2" : "px-3"}`}
+            >
               <Users className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"}`} />
               {!collapsed && <span>Users</span>}
             </Button>
@@ -91,17 +109,23 @@ export function Sidebar() {
       <div className="border-t p-2">
         <nav className="grid gap-1">
           <Link to="#">
-            <Button variant="ghost" className={`w-full justify-start ${collapsed ? "px-2" : "px-3"}`}>
+            <Button
+              variant="ghost"
+              className={`w-full justify-start ${collapsed ? "px-2" : "px-3"}`}
+            >
               <Cog className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"}`} />
               {!collapsed && <span>Settings</span>}
             </Button>
           </Link>
-          <Button variant="ghost" className={`w-full justify-start ${collapsed ? "px-2" : "px-3"}`}>
+          <Button
+            variant="ghost"
+            className={`w-full justify-start ${collapsed ? "px-2" : "px-3"}`}
+          >
             <LogOut className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"}`} />
             {!collapsed && <span>Logout</span>}
           </Button>
         </nav>
       </div>
     </div>
-  )
+  );
 }

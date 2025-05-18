@@ -1,18 +1,24 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { MoreHorizontal, PlusCircle, Search, UserMinus } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { MoreHorizontal, PlusCircle, Search, UserMinus } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -21,9 +27,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 // Mock data for users assigned to a role
 const roleUsers = {
@@ -161,7 +167,7 @@ const roleUsers = {
       avatar: "/placeholder.svg",
     },
   ],
-}
+};
 
 // Mock data for groups assigned to a role
 const roleGroups = {
@@ -209,7 +215,7 @@ const roleGroups = {
       users: 8,
     },
   ],
-}
+};
 
 // Mock data for available users to add to a role
 const availableUsers = [
@@ -231,7 +237,7 @@ const availableUsers = [
     email: "newuser3@example.com",
     avatar: "/placeholder.svg",
   },
-]
+];
 
 // Mock data for available groups to add to a role
 const availableGroups = [
@@ -250,44 +256,52 @@ const availableGroups = [
     name: "Security Team",
     description: "Security team with audit access",
   },
-]
+];
 
 interface RoleAssignmentsTableProps {
-  roleId: string
+  roleId: string;
 }
 
 export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false)
-  const [isAddGroupDialogOpen, setIsAddGroupDialogOpen] = useState(false)
-  const [activeTab, setActiveTab] = useState("users")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false);
+  const [isAddGroupDialogOpen, setIsAddGroupDialogOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("users");
 
-  const users = roleUsers[roleId as keyof typeof roleUsers] || []
-  const groups = roleGroups[roleId as keyof typeof roleGroups] || []
+  const users = roleUsers[roleId as keyof typeof roleUsers] || [];
+  const groups = roleGroups[roleId as keyof typeof roleGroups] || [];
 
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  );
 
   const filteredGroups = groups.filter(
     (group) =>
       group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       group.description.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  );
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
           <CardTitle>Role Assignments</CardTitle>
-          <CardDescription>Users and groups assigned to this role</CardDescription>
+          <CardDescription>
+            Users and groups assigned to this role
+          </CardDescription>
         </div>
         <div className="flex gap-2">
-          <Dialog open={isAddUserDialogOpen} onOpenChange={setIsAddUserDialogOpen}>
+          <Dialog
+            open={isAddUserDialogOpen}
+            onOpenChange={setIsAddUserDialogOpen}
+          >
             <DialogTrigger asChild>
-              <Button variant={activeTab === "users" ? "default" : "outline"} className="gap-2">
+              <Button
+                variant={activeTab === "users" ? "default" : "outline"}
+                className="gap-2"
+              >
                 <PlusCircle className="h-4 w-4" />
                 Add User
               </Button>
@@ -296,27 +310,42 @@ export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
               <DialogHeader>
                 <DialogTitle>Add Users to Role</DialogTitle>
                 <DialogDescription>
-                  Select users to assign this role to. They will receive all permissions granted by this role.
+                  Select users to assign this role to. They will receive all
+                  permissions granted by this role.
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="relative">
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input type="search" placeholder="Search users..." className="pl-8" />
+                  <Input
+                    type="search"
+                    placeholder="Search users..."
+                    className="pl-8"
+                  />
                 </div>
                 <div className="border rounded-md p-4 space-y-3 max-h-60 overflow-y-auto">
                   {availableUsers.map((user) => (
                     <div key={user.id} className="flex items-center space-x-2">
                       <Checkbox id={`user-${user.id}`} />
-                      <Label htmlFor={`user-${user.id}`} className="font-normal flex-1">
+                      <Label
+                        htmlFor={`user-${user.id}`}
+                        className="font-normal flex-1"
+                      >
                         <div className="flex items-center gap-2">
                           <Avatar className="h-6 w-6">
-                            <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
-                            <AvatarFallback>{user.name.substring(0, 2)}</AvatarFallback>
+                            <AvatarImage
+                              src={user.avatar || "/placeholder.svg"}
+                              alt={user.name}
+                            />
+                            <AvatarFallback>
+                              {user.name.substring(0, 2)}
+                            </AvatarFallback>
                           </Avatar>
                           <div className="flex justify-between w-full">
                             <span>{user.name}</span>
-                            <span className="text-muted-foreground">{user.email}</span>
+                            <span className="text-muted-foreground">
+                              {user.email}
+                            </span>
                           </div>
                         </div>
                       </Label>
@@ -325,17 +354,28 @@ export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setIsAddUserDialogOpen(false)}>
+                <Button
+                  variant="outline"
+                  onClick={() => setIsAddUserDialogOpen(false)}
+                >
                   Cancel
                 </Button>
-                <Button onClick={() => setIsAddUserDialogOpen(false)}>Add Selected Users</Button>
+                <Button onClick={() => setIsAddUserDialogOpen(false)}>
+                  Add Selected Users
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
 
-          <Dialog open={isAddGroupDialogOpen} onOpenChange={setIsAddGroupDialogOpen}>
+          <Dialog
+            open={isAddGroupDialogOpen}
+            onOpenChange={setIsAddGroupDialogOpen}
+          >
             <DialogTrigger asChild>
-              <Button variant={activeTab === "groups" ? "default" : "outline"} className="gap-2">
+              <Button
+                variant={activeTab === "groups" ? "default" : "outline"}
+                className="gap-2"
+              >
                 <PlusCircle className="h-4 w-4" />
                 Add Group
               </Button>
@@ -344,23 +384,32 @@ export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
               <DialogHeader>
                 <DialogTitle>Add Groups to Role</DialogTitle>
                 <DialogDescription>
-                  Select groups to assign this role to. All users in these groups will receive the permissions granted
-                  by this role.
+                  Select groups to assign this role to. All users in these
+                  groups will receive the permissions granted by this role.
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="relative">
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input type="search" placeholder="Search groups..." className="pl-8" />
+                  <Input
+                    type="search"
+                    placeholder="Search groups..."
+                    className="pl-8"
+                  />
                 </div>
                 <div className="border rounded-md p-4 space-y-3 max-h-60 overflow-y-auto">
                   {availableGroups.map((group) => (
                     <div key={group.id} className="flex items-center space-x-2">
                       <Checkbox id={`group-${group.id}`} />
-                      <Label htmlFor={`group-${group.id}`} className="font-normal flex-1">
+                      <Label
+                        htmlFor={`group-${group.id}`}
+                        className="font-normal flex-1"
+                      >
                         <div>
                           <div className="font-medium">{group.name}</div>
-                          <div className="text-sm text-muted-foreground">{group.description}</div>
+                          <div className="text-sm text-muted-foreground">
+                            {group.description}
+                          </div>
                         </div>
                       </Label>
                     </div>
@@ -368,10 +417,15 @@ export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setIsAddGroupDialogOpen(false)}>
+                <Button
+                  variant="outline"
+                  onClick={() => setIsAddGroupDialogOpen(false)}
+                >
                   Cancel
                 </Button>
-                <Button onClick={() => setIsAddGroupDialogOpen(false)}>Add Selected Groups</Button>
+                <Button onClick={() => setIsAddGroupDialogOpen(false)}>
+                  Add Selected Groups
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -405,18 +459,30 @@ export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
                   <div></div>
                 </div>
                 {filteredUsers.map((user) => (
-                  <div key={user.id} className="grid grid-cols-4 gap-4 p-4 border-b last:border-0 items-center text-sm">
+                  <div
+                    key={user.id}
+                    className="grid grid-cols-4 gap-4 p-4 border-b last:border-0 items-center text-sm"
+                  >
                     <div className="col-span-2 flex items-center gap-3">
                       <Avatar>
-                        <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
-                        <AvatarFallback>{user.name.substring(0, 2)}</AvatarFallback>
+                        <AvatarImage
+                          src={user.avatar || "/placeholder.svg"}
+                          alt={user.name}
+                        />
+                        <AvatarFallback>
+                          {user.name.substring(0, 2)}
+                        </AvatarFallback>
                       </Avatar>
                       <div>
                         <div className="font-medium">{user.name}</div>
-                        <div className="text-muted-foreground">{user.email}</div>
+                        <div className="text-muted-foreground">
+                          {user.email}
+                        </div>
                       </div>
                     </div>
-                    <div className="text-muted-foreground">{user.lastActive}</div>
+                    <div className="text-muted-foreground">
+                      {user.lastActive}
+                    </div>
                     <div className="flex justify-end">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -438,7 +504,9 @@ export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
                   </div>
                 ))}
                 {filteredUsers.length === 0 && (
-                  <div className="p-4 text-center text-muted-foreground">No users found</div>
+                  <div className="p-4 text-center text-muted-foreground">
+                    No users found
+                  </div>
                 )}
               </div>
             </TabsContent>
@@ -456,7 +524,9 @@ export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
                   >
                     <div className="font-medium">{group.name}</div>
                     <div className="col-span-2">
-                      <div className="text-muted-foreground">{group.description}</div>
+                      <div className="text-muted-foreground">
+                        {group.description}
+                      </div>
                       <Badge variant="outline" className="mt-1">
                         {group.users} users
                       </Badge>
@@ -472,14 +542,18 @@ export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
                           <DropdownMenuItem>View Group</DropdownMenuItem>
                           <DropdownMenuItem>View Users</DropdownMenuItem>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem className="text-destructive">Remove from Role</DropdownMenuItem>
+                          <DropdownMenuItem className="text-destructive">
+                            Remove from Role
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
                   </div>
                 ))}
                 {filteredGroups.length === 0 && (
-                  <div className="p-4 text-center text-muted-foreground">No groups found</div>
+                  <div className="p-4 text-center text-muted-foreground">
+                    No groups found
+                  </div>
                 )}
               </div>
             </TabsContent>
@@ -487,5 +561,5 @@ export function RoleAssignmentsTable({ roleId }: RoleAssignmentsTableProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import { useState } from "react"
-import { Bell, Search } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import { Bell, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,12 +9,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 export function TopNav() {
-  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <div className="border-b h-16 flex items-center px-6 gap-4">
@@ -30,7 +30,12 @@ export function TopNav() {
         </div>
       ) : (
         <>
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setSearchOpen(true)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setSearchOpen(true)}
+          >
             <Search className="h-5 w-5" />
           </Button>
           <div className="hidden md:flex items-center h-9 w-full max-w-sm rounded-md border px-3">
@@ -48,7 +53,9 @@ export function TopNav() {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center">3</Badge>
+              <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center">
+                3
+              </Badge>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-80">
@@ -57,18 +64,30 @@ export function TopNav() {
             <div className="max-h-80 overflow-y-auto">
               <DropdownMenuItem className="cursor-pointer flex flex-col items-start py-2">
                 <div className="font-medium">Cluster Connection Issue</div>
-                <div className="text-sm text-muted-foreground">Development Cluster is disconnected</div>
-                <div className="text-xs text-muted-foreground mt-1">10 minutes ago</div>
+                <div className="text-sm text-muted-foreground">
+                  Development Cluster is disconnected
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  10 minutes ago
+                </div>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer flex flex-col items-start py-2">
                 <div className="font-medium">New User Added</div>
-                <div className="text-sm text-muted-foreground">User dev@example.com was added to the system</div>
-                <div className="text-xs text-muted-foreground mt-1">1 hour ago</div>
+                <div className="text-sm text-muted-foreground">
+                  User dev@example.com was added to the system
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  1 hour ago
+                </div>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer flex flex-col items-start py-2">
                 <div className="font-medium">RBAC Policy Updated</div>
-                <div className="text-sm text-muted-foreground">The developer-readonly policy was updated</div>
-                <div className="text-xs text-muted-foreground mt-1">2 hours ago</div>
+                <div className="text-sm text-muted-foreground">
+                  The developer-readonly policy was updated
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  2 hours ago
+                </div>
               </DropdownMenuItem>
             </div>
             <DropdownMenuSeparator />
@@ -99,5 +118,5 @@ export function TopNav() {
         </DropdownMenu>
       </div>
     </div>
-  )
+  );
 }

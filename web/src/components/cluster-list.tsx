@@ -1,16 +1,23 @@
-import { useState } from "react"
-import { Link } from "react-router"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
+import { useState } from "react";
+import { Link } from "react-router";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Boxes, ChevronRight, Clock, MoreVertical, RefreshCw, Server } from "lucide-react"
+} from "@/components/ui/dropdown-menu";
+import {
+  Boxes,
+  ChevronRight,
+  Clock,
+  MoreVertical,
+  RefreshCw,
+  Server,
+} from "lucide-react";
 
 // Mock data for clusters
 const clusters = [
@@ -44,15 +51,15 @@ const clusters = [
     region: "eu-west-1",
     lastChecked: "1 hour ago",
   },
-]
+];
 
 export function ClusterList() {
-  const [refreshingId, setRefreshingId] = useState<string | null>(null)
+  const [refreshingId, setRefreshingId] = useState<string | null>(null);
 
   const handleRefresh = (id: string) => {
-    setRefreshingId(id)
-    setTimeout(() => setRefreshingId(null), 1500)
-  }
+    setRefreshingId(id);
+    setTimeout(() => setRefreshingId(null), 1500);
+  };
 
   return (
     <div className="space-y-4">
@@ -66,10 +73,17 @@ export function ClusterList() {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="font-medium text-lg">{cluster.name}</h3>
-                  <Badge variant={cluster.status === "Connected" ? "default" : "destructive"}>{cluster.status}</Badge>
+                  <Badge
+                    variant={
+                      cluster.status === "Connected" ? "default" : "destructive"
+                    }
+                  >
+                    {cluster.status}
+                  </Badge>
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  {cluster.environment} • {cluster.version} • {cluster.nodes} nodes • {cluster.region}
+                  {cluster.environment} • {cluster.version} • {cluster.nodes}{" "}
+                  nodes • {cluster.region}
                 </div>
               </div>
             </div>
@@ -86,7 +100,9 @@ export function ClusterList() {
                 onClick={() => handleRefresh(cluster.id)}
                 disabled={refreshingId === cluster.id}
               >
-                <RefreshCw className={`h-4 w-4 ${refreshingId === cluster.id ? "animate-spin" : ""}`} />
+                <RefreshCw
+                  className={`h-4 w-4 ${refreshingId === cluster.id ? "animate-spin" : ""}`}
+                />
               </Button>
 
               <DropdownMenu>
@@ -100,7 +116,9 @@ export function ClusterList() {
                   <DropdownMenuItem>Download Kubeconfig</DropdownMenuItem>
                   <DropdownMenuItem>View Logs</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="text-destructive">Remove Cluster</DropdownMenuItem>
+                  <DropdownMenuItem className="text-destructive">
+                    Remove Cluster
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
@@ -114,5 +132,5 @@ export function ClusterList() {
         </Card>
       ))}
     </div>
-  )
+  );
 }

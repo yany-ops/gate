@@ -1,10 +1,16 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ClusterList } from "@/components/cluster-list"
-import { RecentActivity } from "@/components/recent-activity"
-import { PlusCircle } from "lucide-react"
-import { Link } from "react-router"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ClusterList } from "@/components/cluster-list";
+import { RecentActivity } from "@/components/recent-activity";
+import { PlusCircle } from "lucide-react";
+import { Link } from "react-router";
 
 const DashboardPage = () => {
   return (
@@ -62,7 +68,7 @@ const DashboardPage = () => {
         </TabsContent>
       </Tabs>
     </div>
-  )
-}
+  );
+};
 
-export default DashboardPage
+export default DashboardPage;

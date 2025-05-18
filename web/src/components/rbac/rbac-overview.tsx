@@ -1,5 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { UsersIcon, UserIcon as UserGroupIcon, ShieldCheckIcon, ServerIcon } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  UsersIcon,
+  UserIcon as UserGroupIcon,
+  ShieldCheckIcon,
+  ServerIcon,
+} from "lucide-react";
 
 export function RbacOverview() {
   return (
@@ -11,7 +16,9 @@ export function RbacOverview() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">15</div>
-          <p className="text-xs text-muted-foreground">Authenticated users in the system</p>
+          <p className="text-xs text-muted-foreground">
+            Authenticated users in the system
+          </p>
         </CardContent>
       </Card>
       <Card>
@@ -21,7 +28,9 @@ export function RbacOverview() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">4</div>
-          <p className="text-xs text-muted-foreground">User groups with assigned roles</p>
+          <p className="text-xs text-muted-foreground">
+            User groups with assigned roles
+          </p>
         </CardContent>
       </Card>
       <Card>
@@ -31,7 +40,9 @@ export function RbacOverview() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">8</div>
-          <p className="text-xs text-muted-foreground">Defined roles with permissions</p>
+          <p className="text-xs text-muted-foreground">
+            Defined roles with permissions
+          </p>
         </CardContent>
       </Card>
       <Card>
@@ -41,9 +52,11 @@ export function RbacOverview() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">3</div>
-          <p className="text-xs text-muted-foreground">Kubernetes clusters with RBAC</p>
+          <p className="text-xs text-muted-foreground">
+            Kubernetes clusters with RBAC
+          </p>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

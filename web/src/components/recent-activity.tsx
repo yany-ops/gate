@@ -1,5 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card } from "@/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card } from "@/components/ui/card";
 
 // Mock data for recent activity
 const activities = [
@@ -58,7 +58,7 @@ const activities = [
     target: "Development Cluster",
     time: "5 hours ago",
   },
-]
+];
 
 export function RecentActivity() {
   return (
@@ -67,8 +67,13 @@ export function RecentActivity() {
         <Card key={activity.id} className="p-4">
           <div className="flex items-center gap-4">
             <Avatar>
-              <AvatarImage src={activity.user.avatar || "/placeholder.svg"} alt={activity.user.name} />
-              <AvatarFallback>{activity.user.name.substring(0, 2)}</AvatarFallback>
+              <AvatarImage
+                src={activity.user.avatar || "/placeholder.svg"}
+                alt={activity.user.name}
+              />
+              <AvatarFallback>
+                {activity.user.name.substring(0, 2)}
+              </AvatarFallback>
             </Avatar>
             <div className="flex-1">
               <div className="flex items-center gap-1">
@@ -76,11 +81,13 @@ export function RecentActivity() {
                 <span>{activity.action}</span>
                 <span className="font-medium">{activity.target}</span>
               </div>
-              <div className="text-sm text-muted-foreground">{activity.time}</div>
+              <div className="text-sm text-muted-foreground">
+                {activity.time}
+              </div>
             </div>
           </div>
         </Card>
       ))}
     </div>
-  )
+  );
 }

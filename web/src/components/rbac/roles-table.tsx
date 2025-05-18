@@ -1,16 +1,16 @@
-import { useState } from "react"
-import { Link } from "react-router"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import { Link } from "react-router";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
-import { MoreHorizontal, PlusCircle, Search } from "lucide-react"
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { MoreHorizontal, PlusCircle, Search } from "lucide-react";
 
 // Mock data for roles
 const roles = [
@@ -33,7 +33,8 @@ const roles = [
   {
     id: "3",
     name: "Operations Role",
-    description: "Role for operations team with monitoring and deployment access",
+    description:
+      "Role for operations team with monitoring and deployment access",
     permissions: 10,
     users: 3,
     groups: 1,
@@ -46,16 +47,16 @@ const roles = [
     users: 8,
     groups: 2,
   },
-]
+];
 
 export function RolesTable() {
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
   const filteredRoles = roles.filter(
     (role) =>
       role.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       role.description.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  );
 
   return (
     <div className="space-y-4">
@@ -87,13 +88,21 @@ export function RolesTable() {
           <div>Actions</div>
         </div>
         {filteredRoles.map((role) => (
-          <div key={role.id} className="grid grid-cols-6 gap-4 p-4 border-b last:border-0 items-center text-sm">
+          <div
+            key={role.id}
+            className="grid grid-cols-6 gap-4 p-4 border-b last:border-0 items-center text-sm"
+          >
             <div className="font-medium">
-              <Link to={`/dashboard/rbac/roles/${role.id}`} className="hover:underline">
+              <Link
+                to={`/dashboard/rbac/roles/${role.id}`}
+                className="hover:underline"
+              >
                 {role.name}
               </Link>
             </div>
-            <div className="col-span-2 text-muted-foreground">{role.description}</div>
+            <div className="col-span-2 text-muted-foreground">
+              {role.description}
+            </div>
             <div>
               <Badge variant="secondary">{role.permissions} permissions</Badge>
             </div>
@@ -117,21 +126,31 @@ export function RolesTable() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem asChild>
-                    <Link to={`/dashboard/rbac/roles/${role.id}`}>View Details</Link>
+                    <Link to={`/dashboard/rbac/roles/${role.id}`}>
+                      View Details
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to={`/dashboard/rbac/roles/${role.id}/edit`}>Edit Role</Link>
+                    <Link to={`/dashboard/rbac/roles/${role.id}/edit`}>
+                      Edit Role
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>Clone Role</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="text-destructive">Delete Role</DropdownMenuItem>
+                  <DropdownMenuItem className="text-destructive">
+                    Delete Role
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </div>
         ))}
-        {filteredRoles.length === 0 && <div className="p-4 text-center text-muted-foreground">No roles found</div>}
+        {filteredRoles.length === 0 && (
+          <div className="p-4 text-center text-muted-foreground">
+            No roles found
+          </div>
+        )}
       </div>
     </div>
-  )
+  );
 }

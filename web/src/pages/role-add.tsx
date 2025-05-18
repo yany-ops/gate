@@ -1,71 +1,98 @@
-import type React from "react"
-
-import { useState } from "react"
-import { useNavigate } from "react-router"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { ArrowLeft, Plus, X } from "lucide-react"
-import { Link } from "react-router"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
+import type { KeyboardEvent, FormEvent } from "react";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { ArrowLeft, Plus, X } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 
 export default function AddRolePage() {
-  const navigate = useNavigate()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [userInput, setUserInput] = useState("")
-  const [groupInput, setGroupInput] = useState("")
-  const [users, setUsers] = useState<string[]>([])
-  const [groups, setGroups] = useState<string[]>([])
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [groupInput, setGroupInput] = useState("");
+  const [users, setUsers] = useState<string[]>([]);
+  const [groups, setGroups] = useState<string[]>([]);
 
   // Mock data for clusters
   const availableClusters = [
     { id: "1", name: "Production Cluster" },
     { id: "2", name: "Staging Cluster" },
     { id: "3", name: "Development Cluster" },
-  ]
+  ];
 
   // Mock data for resources and actions
-  const resources = ["pods", "deployments", "services", "configmaps", "secrets", "namespaces", "nodes"]
-  const actions = ["get", "list", "watch", "create", "update", "patch", "delete"]
+  const resources = [
+    "pods",
+    "deployments",
+    "services",
+    "configmaps",
+    "secrets",
+    "namespaces",
+    "nodes",
+  ];
+  const actions = [
+    "get",
+    "list",
+    "watch",
+    "create",
+    "update",
+    "patch",
+    "delete",
+  ];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate adding a role
     setTimeout(() => {
-      setIsSubmitting(false)
-      navigate("/dashboard/rbac")
-    }, 1500)
-  }
+      setIsSubmitting(false);
+      navigate("/dashboard/rbac");
+    }, 1500);
+  };
 
-  const handleAddUser = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleAddUser = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && userInput.trim()) {
-      e.preventDefault()
-      setUsers([...users, userInput.trim()])
-      setUserInput("")
+      e.preventDefault();
+      setUsers([...users, userInput.trim()]);
+      setUserInput("");
     }
-  }
+  };
 
-  const handleAddGroup = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleAddGroup = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && groupInput.trim()) {
-      e.preventDefault()
-      setGroups([...groups, groupInput.trim()])
-      setGroupInput("")
+      e.preventDefault();
+      setGroups([...groups, groupInput.trim()]);
+      setGroupInput("");
     }
-  }
+  };
 
   const removeUser = (user: string) => {
-    setUsers(users.filter((u) => u !== user))
-  }
+    setUsers(users.filter((u) => u !== user));
+  };
 
   const removeGroup = (group: string) => {
-    setGroups(groups.filter((g) => g !== group))
-  }
+    setGroups(groups.filter((g) => g !== group));
+  };
 
   return (
     <div className="space-y-6">
@@ -81,7 +108,9 @@ export default function AddRolePage() {
       <Card>
         <CardHeader>
           <CardTitle>Role Details & Permissions</CardTitle>
-          <CardDescription>Define a new role with specific permissions</CardDescription>
+          <CardDescription>
+            Define a new role with specific permissions
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form id="role-form" onSubmit={handleSubmit} className="space-y-6">
@@ -117,9 +146,15 @@ export default function AddRolePage() {
                 <Label>Cluster Selection</Label>
                 <div className="border rounded-md p-4 space-y-3">
                   {availableClusters.map((cluster) => (
-                    <div key={cluster.id} className="flex items-center space-x-2">
+                    <div
+                      key={cluster.id}
+                      className="flex items-center space-x-2"
+                    >
                       <Checkbox id={`cluster-${cluster.id}`} />
-                      <Label htmlFor={`cluster-${cluster.id}`} className="font-normal">
+                      <Label
+                        htmlFor={`cluster-${cluster.id}`}
+                        className="font-normal"
+                      >
                         {cluster.name}
                       </Label>
                     </div>
@@ -135,9 +170,15 @@ export default function AddRolePage() {
                       <h4 className="font-medium">Resources</h4>
                       <div className="space-y-2">
                         {resources.map((resource) => (
-                          <div key={resource} className="flex items-center space-x-2">
+                          <div
+                            key={resource}
+                            className="flex items-center space-x-2"
+                          >
                             <Checkbox id={`resource-${resource}`} />
-                            <Label htmlFor={`resource-${resource}`} className="font-normal">
+                            <Label
+                              htmlFor={`resource-${resource}`}
+                              className="font-normal"
+                            >
                               {resource}
                             </Label>
                           </div>
@@ -148,9 +189,15 @@ export default function AddRolePage() {
                       <h4 className="font-medium">Actions</h4>
                       <div className="space-y-2">
                         {actions.map((action) => (
-                          <div key={action} className="flex items-center space-x-2">
+                          <div
+                            key={action}
+                            className="flex items-center space-x-2"
+                          >
                             <Checkbox id={`action-${action}`} />
-                            <Label htmlFor={`action-${action}`} className="font-normal">
+                            <Label
+                              htmlFor={`action-${action}`}
+                              className="font-normal"
+                            >
                               {action}
                             </Label>
                           </div>
@@ -176,8 +223,8 @@ export default function AddRolePage() {
                       size="icon"
                       onClick={() => {
                         if (userInput.trim()) {
-                          setUsers([...users, userInput.trim()])
-                          setUserInput("")
+                          setUsers([...users, userInput.trim()]);
+                          setUserInput("");
                         }
                       }}
                     >
@@ -186,7 +233,11 @@ export default function AddRolePage() {
                   </div>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {users.map((user, index) => (
-                      <Badge key={index} variant="secondary" className="flex items-center gap-1">
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="flex items-center gap-1"
+                      >
                         {user}
                         <Button
                           variant="ghost"
@@ -217,8 +268,8 @@ export default function AddRolePage() {
                       size="icon"
                       onClick={() => {
                         if (groupInput.trim()) {
-                          setGroups([...groups, groupInput.trim()])
-                          setGroupInput("")
+                          setGroups([...groups, groupInput.trim()]);
+                          setGroupInput("");
                         }
                       }}
                     >
@@ -227,7 +278,11 @@ export default function AddRolePage() {
                   </div>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {groups.map((group, index) => (
-                      <Badge key={index} variant="secondary" className="flex items-center gap-1">
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="flex items-center gap-1"
+                      >
                         {group}
                         <Button
                           variant="ghost"
@@ -255,5 +310,5 @@ export default function AddRolePage() {
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }

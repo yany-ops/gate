@@ -1,18 +1,31 @@
-import { useState } from "react"
-import { useParams } from "react-router"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, CheckCircle, Clock, Download, RefreshCw, Terminal, XCircle } from "lucide-react"
-import { Link } from "react-router"
-import { ClusterRbacTable } from "@/components/cluster-rbac-table"
-import { ClusterResourcesTable } from "@/components/cluster-resources-table"
+import { useState } from "react";
+import { useParams, Link } from "react-router";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowLeft,
+  CheckCircle,
+  Clock,
+  Download,
+  RefreshCw,
+  Terminal,
+  XCircle,
+} from "lucide-react";
+import { ClusterRbacTable } from "@/components/cluster-rbac-table";
+import { ClusterResourcesTable } from "@/components/cluster-resources-table";
 
 const ClusterDetailsPage = () => {
-  const params = useParams()
-  const clusterId = params.id as string
-  const [isRefreshing, setIsRefreshing] = useState(false)
+  const params = useParams();
+  const clusterId = params.id as string;
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Mock data based on cluster ID
   const clusterData = {
@@ -51,12 +64,12 @@ const ClusterDetailsPage = () => {
     nodes: 0,
     region: "Unknown",
     lastChecked: "Unknown",
-  }
+  };
 
   const handleRefresh = () => {
-    setIsRefreshing(true)
-    setTimeout(() => setIsRefreshing(false), 1500)
-  }
+    setIsRefreshing(true);
+    setTimeout(() => setIsRefreshing(false), 1500);
+  };
 
   return (
     <div className="space-y-6">
@@ -66,8 +79,15 @@ const ClusterDetailsPage = () => {
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
-        <h1 className="text-3xl font-bold tracking-tight">{clusterData.name}</h1>
-        <Badge variant={clusterData.status === "Connected" ? "default" : "destructive"} className="ml-2">
+        <h1 className="text-3xl font-bold tracking-tight">
+          {clusterData.name}
+        </h1>
+        <Badge
+          variant={
+            clusterData.status === "Connected" ? "default" : "destructive"
+          }
+          className="ml-2"
+        >
           {clusterData.status}
         </Badge>
       </div>
@@ -75,7 +95,9 @@ const ClusterDetailsPage = () => {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Kubernetes Version</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Kubernetes Version
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{clusterData.version}</div>
@@ -121,7 +143,9 @@ const ClusterDetailsPage = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Cluster Overview</CardTitle>
-                  <CardDescription>Details and status of your Kubernetes cluster</CardDescription>
+                  <CardDescription>
+                    Details and status of your Kubernetes cluster
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
@@ -133,7 +157,9 @@ const ClusterDetailsPage = () => {
                           <div>{clusterData.name}</div>
                         </div>
                         <div className="grid grid-cols-2 gap-2">
-                          <div className="text-muted-foreground">Environment:</div>
+                          <div className="text-muted-foreground">
+                            Environment:
+                          </div>
                           <div>{clusterData.environment}</div>
                         </div>
                         <div className="grid grid-cols-2 gap-2">
@@ -153,7 +179,9 @@ const ClusterDetailsPage = () => {
                           </div>
                         </div>
                         <div className="grid grid-cols-2 gap-2">
-                          <div className="text-muted-foreground">API Server:</div>
+                          <div className="text-muted-foreground">
+                            API Server:
+                          </div>
                           <div>https://k8s-{clusterId}.example.com:6443</div>
                         </div>
                       </div>
@@ -162,19 +190,27 @@ const ClusterDetailsPage = () => {
                       <h3 className="font-medium mb-2">Access Information</h3>
                       <div className="space-y-2 text-sm">
                         <div className="grid grid-cols-2 gap-2">
-                          <div className="text-muted-foreground">Access Method:</div>
+                          <div className="text-muted-foreground">
+                            Access Method:
+                          </div>
                           <div>Proxy</div>
                         </div>
                         <div className="grid grid-cols-2 gap-2">
-                          <div className="text-muted-foreground">Authentication:</div>
+                          <div className="text-muted-foreground">
+                            Authentication:
+                          </div>
                           <div>Service Account Token</div>
                         </div>
                         <div className="grid grid-cols-2 gap-2">
-                          <div className="text-muted-foreground">Users with Access:</div>
+                          <div className="text-muted-foreground">
+                            Users with Access:
+                          </div>
                           <div>8 users</div>
                         </div>
                         <div className="grid grid-cols-2 gap-2">
-                          <div className="text-muted-foreground">RBAC Policies:</div>
+                          <div className="text-muted-foreground">
+                            RBAC Policies:
+                          </div>
                           <div>5 policies</div>
                         </div>
                       </div>
@@ -182,8 +218,15 @@ const ClusterDetailsPage = () => {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button variant="outline" className="gap-2" onClick={handleRefresh} disabled={isRefreshing}>
-                      <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
+                    <Button
+                      variant="outline"
+                      className="gap-2"
+                      onClick={handleRefresh}
+                      disabled={isRefreshing}
+                    >
+                      <RefreshCw
+                        className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`}
+                      />
                       {isRefreshing ? "Refreshing..." : "Refresh Status"}
                     </Button>
                     <Button variant="outline" className="gap-2">
@@ -208,25 +251,67 @@ const ClusterDetailsPage = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Cluster Logs</CardTitle>
-                  <CardDescription>Recent activity and system logs</CardDescription>
+                  <CardDescription>
+                    Recent activity and system logs
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="bg-black text-green-400 font-mono text-sm p-4 rounded-md h-80 overflow-y-auto">
-                    <div>[2023-05-18 14:22:33] INFO: Cluster connection established</div>
-                    <div>[2023-05-18 14:22:35] INFO: Authenticated as system:serviceaccount:kube-system:proxy-sa</div>
-                    <div>[2023-05-18 14:22:36] INFO: RBAC policies synchronized</div>
-                    <div>[2023-05-18 14:25:12] INFO: User admin@example.com connected</div>
-                    <div>[2023-05-18 14:26:45] INFO: Namespace monitoring created</div>
-                    <div>[2023-05-18 14:30:22] WARN: High CPU usage detected on node-2</div>
-                    <div>[2023-05-18 14:35:18] INFO: Deployment api-gateway updated (replicas: 3)</div>
-                    <div>[2023-05-18 14:40:05] INFO: User dev@example.com connected</div>
-                    <div>[2023-05-18 14:42:33] INFO: Service backend-api created in namespace default</div>
-                    <div>[2023-05-18 14:45:12] INFO: Ingress frontend updated in namespace default</div>
-                    <div>[2023-05-18 14:50:28] INFO: ConfigMap app-config updated in namespace default</div>
-                    <div>[2023-05-18 14:55:33] INFO: Secret db-credentials created in namespace database</div>
-                    <div>[2023-05-18 15:00:45] INFO: Scheduled health check completed successfully</div>
-                    <div>[2023-05-18 15:05:22] INFO: User admin@example.com disconnected</div>
-                    <div>[2023-05-18 15:10:18] INFO: Metrics collection completed</div>
+                    <div>
+                      [2023-05-18 14:22:33] INFO: Cluster connection established
+                    </div>
+                    <div>
+                      [2023-05-18 14:22:35] INFO: Authenticated as
+                      system:serviceaccount:kube-system:proxy-sa
+                    </div>
+                    <div>
+                      [2023-05-18 14:22:36] INFO: RBAC policies synchronized
+                    </div>
+                    <div>
+                      [2023-05-18 14:25:12] INFO: User admin@example.com
+                      connected
+                    </div>
+                    <div>
+                      [2023-05-18 14:26:45] INFO: Namespace monitoring created
+                    </div>
+                    <div>
+                      [2023-05-18 14:30:22] WARN: High CPU usage detected on
+                      node-2
+                    </div>
+                    <div>
+                      [2023-05-18 14:35:18] INFO: Deployment api-gateway updated
+                      (replicas: 3)
+                    </div>
+                    <div>
+                      [2023-05-18 14:40:05] INFO: User dev@example.com connected
+                    </div>
+                    <div>
+                      [2023-05-18 14:42:33] INFO: Service backend-api created in
+                      namespace default
+                    </div>
+                    <div>
+                      [2023-05-18 14:45:12] INFO: Ingress frontend updated in
+                      namespace default
+                    </div>
+                    <div>
+                      [2023-05-18 14:50:28] INFO: ConfigMap app-config updated
+                      in namespace default
+                    </div>
+                    <div>
+                      [2023-05-18 14:55:33] INFO: Secret db-credentials created
+                      in namespace database
+                    </div>
+                    <div>
+                      [2023-05-18 15:00:45] INFO: Scheduled health check
+                      completed successfully
+                    </div>
+                    <div>
+                      [2023-05-18 15:05:22] INFO: User admin@example.com
+                      disconnected
+                    </div>
+                    <div>
+                      [2023-05-18 15:10:18] INFO: Metrics collection completed
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -235,7 +320,7 @@ const ClusterDetailsPage = () => {
         </Tabs>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ClusterDetailsPage
+export default ClusterDetailsPage;

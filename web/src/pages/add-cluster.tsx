@@ -1,31 +1,42 @@
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { useNavigate } from "react-router"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, Upload } from "lucide-react"
-import { Link } from "react-router"
+import { useState } from "react";
+import { useNavigate, Link } from "react-router";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ArrowLeft, Upload } from "lucide-react";
 
 export default function AddClusterPage() {
-  const navigate = useNavigate()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate adding a cluster
     setTimeout(() => {
-      setIsSubmitting(false)
-      navigate("/dashboard/clusters")
-    }, 1500)
-  }
+      setIsSubmitting(false);
+      navigate("/dashboard/clusters");
+    }, 1500);
+  };
 
   return (
     <div className="space-y-6">
@@ -35,13 +46,17 @@ export default function AddClusterPage() {
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
-        <h1 className="text-3xl font-bold tracking-tight">Add Kubernetes Cluster</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          Add Kubernetes Cluster
+        </h1>
       </div>
 
       <Card className="max-w-3xl">
         <CardHeader>
           <CardTitle>Cluster Configuration</CardTitle>
-          <CardDescription>Connect a new Kubernetes cluster to your proxy management system</CardDescription>
+          <CardDescription>
+            Connect a new Kubernetes cluster to your proxy management system
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="manual" className="w-full">
@@ -55,7 +70,11 @@ export default function AddClusterPage() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Cluster Name</Label>
-                      <Input id="name" placeholder="production-cluster" required />
+                      <Input
+                        id="name"
+                        placeholder="production-cluster"
+                        required
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="environment">Environment</Label>
@@ -64,7 +83,9 @@ export default function AddClusterPage() {
                           <SelectValue placeholder="Select environment" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="development">Development</SelectItem>
+                          <SelectItem value="development">
+                            Development
+                          </SelectItem>
                           <SelectItem value="staging">Staging</SelectItem>
                           <SelectItem value="production">Production</SelectItem>
                         </SelectContent>
@@ -74,12 +95,20 @@ export default function AddClusterPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="api-server">API Server URL</Label>
-                    <Input id="api-server" placeholder="https://kubernetes.example.com:6443" required />
+                    <Input
+                      id="api-server"
+                      placeholder="https://kubernetes.example.com:6443"
+                      required
+                    />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="ca-cert">CA Certificate</Label>
-                    <Textarea id="ca-cert" placeholder="-----BEGIN CERTIFICATE-----..." rows={4} />
+                    <Textarea
+                      id="ca-cert"
+                      placeholder="-----BEGIN CERTIFICATE-----..."
+                      rows={4}
+                    />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -90,15 +119,23 @@ export default function AddClusterPage() {
                           <SelectValue placeholder="Select auth type" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="token">Service Account Token</SelectItem>
-                          <SelectItem value="cert">Client Certificate</SelectItem>
+                          <SelectItem value="token">
+                            Service Account Token
+                          </SelectItem>
+                          <SelectItem value="cert">
+                            Client Certificate
+                          </SelectItem>
                           <SelectItem value="oidc">OIDC</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="token">Service Account Token</Label>
-                      <Input id="token" type="password" placeholder="eyJhbGciOiJSUzI1NiIs..." />
+                      <Input
+                        id="token"
+                        type="password"
+                        placeholder="eyJhbGciOiJSUzI1NiIs..."
+                      />
                     </div>
                   </div>
                 </div>
@@ -118,9 +155,12 @@ export default function AddClusterPage() {
                 <div className="border-2 border-dashed rounded-lg p-10 text-center">
                   <div className="flex flex-col items-center gap-2">
                     <Upload className="h-10 w-10 text-muted-foreground" />
-                    <h3 className="font-medium text-lg">Upload Kubeconfig File</h3>
+                    <h3 className="font-medium text-lg">
+                      Upload Kubeconfig File
+                    </h3>
                     <p className="text-sm text-muted-foreground max-w-md">
-                      Drag and drop your kubeconfig file here, or click to browse
+                      Drag and drop your kubeconfig file here, or click to
+                      browse
                     </p>
                     <Button variant="outline" className="mt-2">
                       Select File
@@ -140,5 +180,5 @@ export default function AddClusterPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

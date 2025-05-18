@@ -1,15 +1,21 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
-import { MoreHorizontal, PlusCircle } from "lucide-react"
-import { Link } from "react-router"
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { MoreHorizontal, PlusCircle } from "lucide-react";
+import { Link } from "react-router";
 
 // Mock data for RBAC policies
 const rbacPolicies = {
@@ -75,21 +81,23 @@ const rbacPolicies = {
       users: 2,
     },
   ],
-}
+};
 
 interface ClusterRbacTableProps {
-  clusterId: string
+  clusterId: string;
 }
 
 export function ClusterRbacTable({ clusterId }: ClusterRbacTableProps) {
-  const policies = rbacPolicies[clusterId as keyof typeof rbacPolicies] || []
+  const policies = rbacPolicies[clusterId as keyof typeof rbacPolicies] || [];
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center">
         <div>
           <CardTitle>RBAC Configuration</CardTitle>
-          <CardDescription>Manage role-based access control for this cluster</CardDescription>
+          <CardDescription>
+            Manage role-based access control for this cluster
+          </CardDescription>
         </div>
         <Link to="/dashboard/rbac/add-policy" className="ml-auto">
           <Button className="gap-2">
@@ -109,9 +117,14 @@ export function ClusterRbacTable({ clusterId }: ClusterRbacTableProps) {
           </div>
           {policies.length > 0 ? (
             policies.map((policy) => (
-              <div key={policy.id} className="grid grid-cols-6 gap-4 p-4 border-b last:border-0 items-center text-sm">
+              <div
+                key={policy.id}
+                className="grid grid-cols-6 gap-4 p-4 border-b last:border-0 items-center text-sm"
+              >
                 <div className="font-medium">{policy.name}</div>
-                <div className="col-span-2 text-muted-foreground">{policy.description}</div>
+                <div className="col-span-2 text-muted-foreground">
+                  {policy.description}
+                </div>
                 <div>
                   <Badge
                     variant={
@@ -140,17 +153,21 @@ export function ClusterRbacTable({ clusterId }: ClusterRbacTableProps) {
                       <DropdownMenuItem>Edit Policy</DropdownMenuItem>
                       <DropdownMenuItem>View Users</DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem className="text-destructive">Delete Policy</DropdownMenuItem>
+                      <DropdownMenuItem className="text-destructive">
+                        Delete Policy
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
               </div>
             ))
           ) : (
-            <div className="p-4 text-center text-muted-foreground">No RBAC policies configured for this cluster</div>
+            <div className="p-4 text-center text-muted-foreground">
+              No RBAC policies configured for this cluster
+            </div>
           )}
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
