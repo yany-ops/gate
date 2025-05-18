@@ -39,5 +39,6 @@ func SetupRouter(config *config.Config, auth *auth.Auth, db *db.DB, logger *zap.
 	rbacHandlers := rbacHandlers(config, db, logger, auth)
 	router.Mount("/api/v1/rbac", rbacHandlers.SetupRouter())
 
+	router.Mount("/", http.FileServer(http.Dir("./web/dist")))
 	return router
 }

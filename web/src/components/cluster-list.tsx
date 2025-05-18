@@ -16,7 +16,6 @@ import {
   Clock,
   MoreVertical,
   RefreshCw,
-  Server,
 } from "lucide-react";
 
 // Mock data for clusters

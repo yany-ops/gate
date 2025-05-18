@@ -3,18 +3,14 @@ import { Link } from "react-router";
 import { useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
 import {
-  BarChart3,
-  Boxes,
   ChevronLeft,
   ChevronRight,
   Cog,
-  Globe,
   Home,
   LockKeyhole,
   LogOut,
   Server,
   Shield,
-  Terminal,
   Users,
 } from "lucide-react";
 import LogoIcon from "../assets/logo.png";
