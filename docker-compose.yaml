@@ -20,7 +20,10 @@ services:
     ports:
       - "5556:5556"
     volumes:
-      - ./config.yaml:/etc/dex/config.yaml
+      - ./dex.yaml:/etc/dex/config.docker.yaml
     depends_on:
       postgres:
         condition: service_healthy
+    environment:
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}

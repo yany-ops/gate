@@ -1,0 +1,42 @@
+issuer: http://127.0.0.1:5556/dex
+
+storage:
+  type: sqlite3
+  config:
+    file: /var/dex/dex.db
+
+web:
+  http: 0.0.0.0:5556
+
+expiry:
+  deviceRequests: 5m
+  signingKeys: 6h
+  idTokens: 24h
+  authRequests: 24h
+
+logger:
+  level: info
+  format: text
+
+oauth2:
+  responseTypes: [code]
+  skipApprovalScreen: true
+  alwaysShowLoginScreen: false
+
+staticClients:
+- id: example-app
+  redirectURIs:
+  - 'http://localhost:8080/auth/callback'
+  name: 'Example App'
+  secret: example-app-secret
+
+connectors:
+- type: github
+  id: github
+  name: github
+  config:
+    clientID: $GITHUB_CLIENT_ID
+    clientSecret: $GITHUB_CLIENT_SECRET
+    redirectURI: http://127.0.0.1:5556/dex/callback
+    orgs:
+    - name: yany-ops

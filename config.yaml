@@ -4,7 +4,7 @@ server:
 oidc:
   client_id: example-app
   client_secret: example-app-secret
-  issuer_url: http://localhost:5556/dex
+  issuer_url: http://127.0.0.1:5556/dex
   redirect_url: http://localhost:8080/auth/callback
 
 database:
@@ -13,7 +13,7 @@ database:
   user: gate
   password: gate
   database: gate
-  auto_migrate: false
+  auto_migrate: true
 admins:
 - dydghks0818@naver.com
 - yany@daangnpay.com
